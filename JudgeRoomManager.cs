@@ -6,12 +6,12 @@ using System.Collections;
 public class JudgeRoomManager : MonoBehaviour
 {
     [Header("Настройки Дебатов")]
-    public DebateController firstSpeaker; // Перетащи сюда Парламента
+    public DebateController firstSpeaker; 
     public bool isSessionActive = false;
 
     [Header("Анимация Кнопки")]
-    public float pushDepth = 0.02f; // Глубина нажатия
-    public float speed = 10f;      // Скорость анимации
+    public float pushDepth = 0.02f; 
+    public float speed = 10f;      
     private Vector3 _startPos;
     private bool _isAnimating = false;
 
@@ -22,7 +22,7 @@ public class JudgeRoomManager : MonoBehaviour
         _startPos = transform.localPosition;
         _interactable = GetComponent<XRSimpleInteractable>();
 
-        // Подписываемся на нажатие триггером (через луч или в упор)
+        
         if (_interactable != null)
         {
             _interactable.selectEntered.AddListener(x => OnButtonPressed());
@@ -30,15 +30,15 @@ public class JudgeRoomManager : MonoBehaviour
     }
 
 
-    // Метод, который срабатывает при нажатии
+
     public void OnButtonPressed()
     {
         if (_isAnimating) return;
 
-        // 1. Запускаем анимацию кнопки
+        
         StartCoroutine(AnimateButton());
 
-        // 2. Если сессия еще не активна — запускаем суд
+        
         if (!isSessionActive)
         {
             if (firstSpeaker != null)
@@ -59,7 +59,7 @@ public class JudgeRoomManager : MonoBehaviour
         _isAnimating = true;
         Vector3 downPos = _startPos + new Vector3(0, -pushDepth, 0);
 
-        // Вниз
+
         float t = 0;
         while (t < 1) {
             t += Time.deltaTime * speed;
@@ -67,7 +67,7 @@ public class JudgeRoomManager : MonoBehaviour
             yield return null;
         }
 
-        // Вверх
+
         t = 0;
         while (t < 1) {
             t += Time.deltaTime * speed;
@@ -78,4 +78,5 @@ public class JudgeRoomManager : MonoBehaviour
         transform.localPosition = _startPos;
         _isAnimating = false;
     }
+
 }
