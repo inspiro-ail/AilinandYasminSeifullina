@@ -20,7 +20,7 @@ public class CommandSequenceManager : MonoBehaviour
         Debug.Log($"🟩 Added command: {commandName} at {position}");
     }
     
-    // --- NEW: Added a way to remove a command when it's picked up again ---
+
     public void RemoveCommandByTransform(Transform commandTransform)
     {
         int removedCount = placedCommands.RemoveAll(c => c.position == commandTransform.position);
@@ -44,8 +44,7 @@ public class CommandSequenceManager : MonoBehaviour
             return;
         }
 
-        // Sort by position.x. Make sure your board is oriented so this works.
-        // For a vertical board, you might sort by position.y instead.
+
         var sorted = placedCommands.OrderBy(c => c.position.x).ToList();
         List<string> commands = sorted.Select(c => c.commandName).ToList();
 
@@ -63,4 +62,5 @@ public class CommandSequenceManager : MonoBehaviour
             position = pos;
         }
     }
+
 }
