@@ -56,42 +56,42 @@ public class DesktopUIMonitor : MonoBehaviour
         layout.childForceExpandHeight = false;
         layout.childControlHeight = false;
         
-        // Title
+
         CreateText(panelGO.transform, "🎤 VR ASSISTANT DEBUG MONITOR", 28, Color.yellow, TextAlignmentOptions.Center);
         
         CreateSeparator(panelGO.transform);
         
-        // Microphone section
+
         CreateText(panelGO.transform, "🎙️ MICROPHONE:", 18, new Color(1f, 0.5f, 0f));
         microphoneText = CreateText(panelGO.transform, "Detecting...", 16, Color.white);
         microphoneText.GetComponent<LayoutElement>().preferredHeight = 60;
         
-        // Microphone dropdown
+
         CreateMicrophoneDropdown(panelGO.transform);
         
         CreateSeparator(panelGO.transform);
         
-        // Status
+
         statusText = CreateText(panelGO.transform, "Status: Initializing...", 20, Color.white);
         statusText.GetComponent<LayoutElement>().preferredHeight = 40;
         
         CreateSeparator(panelGO.transform);
         
-        // Transcription
+
         CreateText(panelGO.transform, "📝 YOU SAID:", 18, new Color(0.5f, 1f, 1f));
         transcriptionText = CreateText(panelGO.transform, "Waiting for input...", 22, Color.white);
         transcriptionText.GetComponent<LayoutElement>().preferredHeight = 150;
         
         CreateSeparator(panelGO.transform);
         
-        // Response
+
         CreateText(panelGO.transform, "🤖 AI RESPONDED:", 18, new Color(0.5f, 1f, 0.5f));
         responseText = CreateText(panelGO.transform, "Waiting for response...", 22, Color.white);
         responseText.GetComponent<LayoutElement>().preferredHeight = 220;
         
         CreateSeparator(panelGO.transform);
         
-        // Instructions
+
         CreateText(panelGO.transform, "💡 HOLD TRIGGER TO TALK", 16, Color.gray, TextAlignmentOptions.Center);
         CreateText(panelGO.transform, "Response will be GREEN (Russian) or RED (English)", 12, Color.gray, TextAlignmentOptions.Center);
         
@@ -103,20 +103,20 @@ public class DesktopUIMonitor : MonoBehaviour
         GameObject dropdownGO = new GameObject("MicrophoneDropdown");
         dropdownGO.transform.SetParent(parent, false);
         
-        // Create dropdown background
+
         Image dropdownBg = dropdownGO.AddComponent<Image>();
         dropdownBg.color = new Color(0.2f, 0.2f, 0.2f, 1f);
         
         microphoneDropdown = dropdownGO.AddComponent<TMP_Dropdown>();
         
-        // Setup dropdown
+
         RectTransform dropdownRect = dropdownGO.GetComponent<RectTransform>();
         dropdownRect.sizeDelta = new Vector2(0, 40);
         
         LayoutElement dropdownLayout = dropdownGO.AddComponent<LayoutElement>();
         dropdownLayout.preferredHeight = 40;
         
-        // Populate with microphones
+
         microphoneDropdown.ClearOptions();
         List<string> options = new List<string>();
         
@@ -135,13 +135,13 @@ public class DesktopUIMonitor : MonoBehaviour
         microphoneDropdown.AddOptions(options);
         microphoneDropdown.onValueChanged.AddListener(OnMicrophoneChanged);
         
-        // Create label and arrow (dropdown template)
+
         CreateDropdownTemplate(dropdownGO);
     }
     
     void CreateDropdownTemplate(GameObject dropdownGO)
     {
-        // Label
+        
         GameObject labelGO = new GameObject("Label");
         labelGO.transform.SetParent(dropdownGO.transform, false);
         
@@ -267,4 +267,5 @@ public class DesktopUIMonitor : MonoBehaviour
         }
         return false;
     }
+
 }
