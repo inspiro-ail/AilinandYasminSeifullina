@@ -27,11 +27,11 @@ public class VRStartButton : MonoBehaviour
         if (buttonRenderer != null)
             defaultColor = buttonRenderer.material.color;
 
-        // Listen to both so it works no matter how your input is mapped
+
         interactable.selectEntered.AddListener(OnSelectPressed);
         interactable.activated.AddListener(OnActivated);
 
-        // Debug listeners to verify events are firing
+
         interactable.hoverEntered.AddListener(_ => Debug.Log("[StartButton] hoverEntered"));
         interactable.hoverExited.AddListener(_ => Debug.Log("[StartButton] hoverExited"));
         interactable.selectExited.AddListener(_ => Debug.Log("[StartButton] selectExited"));
@@ -84,7 +84,7 @@ public class VRStartButton : MonoBehaviour
         if (commandManager != null)
         {
             commandManager.RunCommands();
-            commandManager.ClearCommands(); // prep next run
+            commandManager.ClearCommands(); 
         }
         else
         {
@@ -117,4 +117,5 @@ public class VRStartButton : MonoBehaviour
         }
         Debug.Log($"🧹 Removed {removed} clone buttons after Start pressed.");
     }
+
 }
