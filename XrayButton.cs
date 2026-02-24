@@ -6,8 +6,8 @@ using System.Collections;
 public class XrayVRButton : MonoBehaviour
 {
     [Header("Setup")]
-    public XrayGameManager gameManager; // Ссылка на наш основной менеджер
-    public bool isSickButton;           // Галка для "БОЛЕН", пустая для "ЗДОРОВ"
+    public XrayGameManager gameManager; 
+    public bool isSickButton;           
 
     [Header("Animation")]
     public float pushDepth = 0.02f;
@@ -22,7 +22,7 @@ public class XrayVRButton : MonoBehaviour
         _startPos = transform.localPosition;
         _interactable = GetComponent<XRSimpleInteractable>();
         
-        // Подписываемся на событие выбора (нажатие триггера или кнопки захвата)
+       
         if (_interactable != null)
             _interactable.selectEntered.AddListener(x => OnPress());
     }
@@ -31,7 +31,7 @@ public class XrayVRButton : MonoBehaviour
     {
         if (_isPressed) return;
         
-        // Вызываем проверку ответа в нашем менеджере
+        
         if (gameManager != null)
         {
             gameManager.ProcessAnswer(isSickButton);
@@ -45,7 +45,7 @@ public class XrayVRButton : MonoBehaviour
         _isPressed = true;
         Vector3 downPos = _startPos + new Vector3(0, -pushDepth, 0);
 
-        // Движение вниз
+        
         float t = 0;
         while (t < 1) {
             t += Time.deltaTime * speed;
@@ -53,7 +53,7 @@ public class XrayVRButton : MonoBehaviour
             yield return null;
         }
 
-        // Движение вверх
+        
         t = 0;
         while (t < 1) {
             t += Time.deltaTime * speed;
@@ -65,10 +65,11 @@ public class XrayVRButton : MonoBehaviour
         _isPressed = false;
     }
     
-    // Хорошим тоном будет отписаться от события при уничтожении объекта
+    
     private void OnDestroy()
     {
         if (_interactable != null)
             _interactable.selectEntered.RemoveAllListeners();
     }
+
 }
