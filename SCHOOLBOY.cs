@@ -13,10 +13,9 @@ public class StudentController : MonoBehaviour
     [Header("Ссылки")]
     public AudioSource audioSource;
     public Animator animator;
-    public LessonManager lessonManager; // Кнопка старта урока
-
+    public LessonManager lessonManager; 
     [Header("Настройки VR")]
-    public XRNode inputSource = XRNode.RightHand; // Правый контроллер
+    public XRNode inputSource = XRNode.RightHand; 
     
     [Header("Параметры Ученика")]
     public string lessonTopic = "Фотосинтез";
@@ -29,25 +28,25 @@ public class StudentController : MonoBehaviour
 
     void Start()
     {
-        // Инициализация микрофона
+        
         if (Microphone.devices.Length > 0) _micName = Microphone.devices[0];
 
-        // Системная установка роли
+        
         _chatHistory.Add(new JObject { 
             ["role"] = "system", 
             ["content"] = $"Ты ученик на уроке. Тема: {lessonTopic}. Веди себя как ребенок. Если учитель объясняет сложно — переспрашивай. Если всё понятно, скажи [ПОНЯЛ]." 
         });
         
-        // Чтобы не было ошибок сертификатов
+        
         System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
     }
 
     void Update()
     {
-        // 1. Если урок не начат нажатием 3D кнопки, ничего не делаем
+        
         if (lessonManager == null || !lessonManager.isLessonStarted) return;
 
-        // 2. Проверка ввода (Правый триггер или клавиша O)
+        
         bool isPressed = CheckInput();
 
         if (isPressed && !_isRecording && !_isThinking)
@@ -59,7 +58,7 @@ public class StudentController : MonoBehaviour
             StopAndProcess();
         }
 
-        // 3. Анимация разговора (параметр 'isTalking' в Animator)
+        
         if (animator != null)
         {
             animator.SetBool("isTalking", audioSource.isPlaying);
@@ -98,7 +97,7 @@ public class StudentController : MonoBehaviour
         _isThinking = true;
         Debug.Log("Распознаю речь учителя...");
 
-        // Обрезаем тишину и конвертируем в WAV (нужен файл WavUtility в проекте)
+        
         byte[] wavData = WavUtility.FromAudioClip(_recording);
 
         WWWForm form = new WWWForm();
@@ -165,7 +164,7 @@ public class StudentController : MonoBehaviour
         }
     }
 
-    // Для анимации запуска из LessonManager
+    
     public void PlayInitialAnimation()
     {
         Debug.Log("<color=cyan>[УЧЕНИК]: О, урок начался! Я готов слушать.</color>");
@@ -180,4 +179,5 @@ public class StudentController : MonoBehaviour
         req.SetRequestHeader("Authorization", "Bearer " + apiKey);
         return req;
     }
+
 }
