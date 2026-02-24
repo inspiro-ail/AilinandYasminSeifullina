@@ -17,7 +17,7 @@ public class LessonManager : MonoBehaviour
     {
         _startPos = transform.localPosition;
         
-        // Автоматическая подписка на событие XR кнопки
+        
         var interactable = GetComponent<XRSimpleInteractable>();
         if (interactable != null)
         {
@@ -32,10 +32,10 @@ public class LessonManager : MonoBehaviour
         isLessonStarted = true;
         Debug.Log("<color=green>[СИСТЕМА]: Урок начался!</color>");
         
-        // Визуальное нажатие
+        
         StartCoroutine(AnimateButton());
         
-        // Уведомляем ученика
+        
         if (mainStudent != null) 
             mainStudent.PlayInitialAnimation(); 
     }
@@ -57,4 +57,5 @@ public class LessonManager : MonoBehaviour
         }
         transform.localPosition = _startPos;
     }
+
 }
