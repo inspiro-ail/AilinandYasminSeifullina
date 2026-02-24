@@ -7,14 +7,14 @@ using Newtonsoft.Json.Linq;
 public class DebateController : MonoBehaviour
 {
     public string apiKey = "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";
-    public string roleName; // Парламент или Оппозиция
+    public string roleName; 
     [TextArea] public string roleInstructions;
     public DebateController opponent;
     public AudioSource audioSource;
     public Animator animator;
 
     [HideInInspector] public int argumentsSaid = 0;
-    private const int MaxArguments = 2; // Лимит реплик
+    private const int MaxArguments = 2;
 
     private List<JObject> _chatHistory = new List<JObject>();
 
@@ -49,7 +49,7 @@ public class DebateController : MonoBehaviour
                 
                 yield return StartCoroutine(PlayVoice(text));
 
-                // Передаем ход, если лимит не исчерпан
+
                 if (opponent != null && opponent.argumentsSaid < MaxArguments)
                 {
                     StartCoroutine(opponent.AskGPT(text));
@@ -91,4 +91,5 @@ public class DebateController : MonoBehaviour
         req.SetRequestHeader("Authorization", "Bearer " + apiKey);
         return req;
     }
+
 }
