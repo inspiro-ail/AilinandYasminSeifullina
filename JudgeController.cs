@@ -32,24 +32,22 @@ public class JudgeController : MonoBehaviour
 
     void Update()
     {
-        // 1. Проверяем, наступило ли время судьи
+
         if (roomManager == null || !roomManager.isSessionActive) return;
         if (npc1.argumentsSaid < 2 || npc2.argumentsSaid < 2) return;
 
-        // 2. Получаем правый контроллер
+
         InputDevice rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
         
-        // Пытаемся считать состояние триггера (как float от 0 до 1, это надежнее кнопки)
         bool triggerPressed = false;
         if (rightHand.isValid)
         {
             if (rightHand.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
             {
-                triggerPressed = triggerValue > 0.1f; // Считаем нажатым, если прожали больше чем на 10%
+                triggerPressed = triggerValue > 0.1f;
             }
         }
 
-        // 3. Логика записи (Триггер или клавиша V)
         if ((triggerPressed || Input.GetKeyDown(KeyCode.V)) && !_isRecording) 
         {
             StartRecording();
@@ -103,4 +101,5 @@ public class JudgeController : MonoBehaviour
             }
         }
     }
+
 }
