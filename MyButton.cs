@@ -9,7 +9,7 @@ public class MyButton : MonoBehaviour
     
     [Header("Setup")]
     public ColorType buttonColor; 
-    public ProfessionTestManager gameManager; // Ссылка на твой основной скрипт
+    public ProfessionTestManager gameManager; 
 
     [Header("Animation")]
     public float pushDepth = 0.02f;
@@ -60,4 +60,5 @@ public class MyButton : MonoBehaviour
         transform.localPosition = _startPos;
         _isPressed = false;
     }
+
 }
