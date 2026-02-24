@@ -93,7 +93,7 @@ public class VRColorGame : MonoBehaviour
 
     void OnCellClick(int index)
     {
-        if (_isGameOver) return; // Чтобы нельзя было кликать после конца игры
+        if (_isGameOver) return; 
 
         _currentRound++; 
 
@@ -135,14 +135,14 @@ public class VRColorGame : MonoBehaviour
     {
         _isGameOver = true;
 
-        // Прячем кубики
+        
         foreach (GameObject cell in _cells) cell.SetActive(false);
         
         if (statsText != null)
         {
             statsText.color = Color.yellow;
             
-            // Логика оценки
+            
             string rating = "";
             if (_wrongAnswers == 0) rating = "СУПЕР! ТЫ МАСТЕР!";
             else if (_wrongAnswers < 3) rating = "ОТЛИЧНО!";
@@ -153,4 +153,5 @@ public class VRColorGame : MonoBehaviour
                              $"<color=red>Ошибок: {_wrongAnswers}</color>";
         }
     }
+
 }
