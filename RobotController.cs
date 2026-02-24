@@ -6,20 +6,20 @@ public class RobotController : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveDistance = 1f;
-    public float moveSpeed = 1f;       // steps per second (t from 0..1)
-    public float rotationSpeed = 90f;  // deg/sec normalized to 90
+    public float moveSpeed = 1f;       
+    public float rotationSpeed = 90f;  
 
     [Header("Collision Settings")]
-    public LayerMask obstacleMask = ~0;    // set to your "Walls" layer or Everything for testing
-    public float collisionRadius = 0.25f;  // roughly half the robot width
-    public float castHeight = 0.25f;       // lift cast a bit off the floor
-    public float skin = 0.02f;             // how close to stop before a wall
+    public LayerMask obstacleMask = ~0;   
+    public float collisionRadius = 0.25f; 
+    public float castHeight = 0.25f;      
+    public float skin = 0.02f;            
 
     [Header("Animation")]
     public Animator animator;
 
     [Header("UI")]
-    [SerializeField] private BoardUI boardUI; // assign in Inspector
+    [SerializeField] private BoardUI boardUI; 
 
     public void ExecuteCommands(List<string> commands)
     {
@@ -74,7 +74,7 @@ public class RobotController : MonoBehaviour
         {
             transform.position = Vector3.Lerp(start, end, t);
 
-            // Optional: detect exit mid-move
+
             if (CheckIfOnExit())
             {
                 Debug.Log("✅ Robot reached the goal (mid-move)!");
@@ -122,7 +122,7 @@ public class RobotController : MonoBehaviour
 
     private bool CheckIfOnExit()
     {
-        // Include triggers in case Exit collider is a trigger
+
         Collider[] hits = Physics.OverlapSphere(transform.position, 0.15f, ~0, QueryTriggerInteraction.Collide);
         foreach (var hit in hits)
         {
@@ -136,4 +136,5 @@ public class RobotController : MonoBehaviour
     {
         if (animator != null) animator.CrossFade(animName, 0.1f);
     }
+
 }
