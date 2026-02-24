@@ -25,7 +25,7 @@ public class XrayGameManager : MonoBehaviour
     private int currentIndex = 0;
     private bool canAnswer = true;
 
-    // Переменная для подсчета правильных ответов
+
     private int correctAnswersCount = 0;
 
     void Start()
@@ -62,7 +62,7 @@ public class XrayGameManager : MonoBehaviour
         }
         else
         {
-            // КОНЕЦ ИГРЫ: Показываем финальный результат
+            
             ShowFinalResult();
         }
     }
@@ -76,7 +76,7 @@ public class XrayGameManager : MonoBehaviour
 
         if (playerSaysSick == correctAnswer)
         {
-            correctAnswersCount++; // Увеличиваем счетчик при правильном ответе
+            correctAnswersCount++; 
             if (feedbackText != null) feedbackText.text = "<color=green>ВЕРНО!</color>";
         }
         else
@@ -93,7 +93,7 @@ public class XrayGameManager : MonoBehaviour
         UpdateDisplay();
     }
 
-    // Метод для вывода финальной статистики
+    
     void ShowFinalResult()
     {
         if (feedbackText != null)
@@ -102,8 +102,9 @@ public class XrayGameManager : MonoBehaviour
                                 "Правильно: " + correctAnswersCount + " из " + levels.Length;
         }
         
-        // Очищаем экраны, чтобы они не светились картинками в конце
+        
         referenceRenderer.material.mainTexture = null;
         questionRenderer.material.mainTexture = null;
     }
+
 }
