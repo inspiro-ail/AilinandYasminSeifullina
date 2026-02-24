@@ -12,7 +12,7 @@ public class CommandButtonSpawner : MonoBehaviour
     [Header("Wall Constraint Settings")]
     public float wallDistance = 0.01f;
 
-    // --- CHANGE: isClone is now a public property for safe access ---
+
     public bool IsClone { get; private set; } = false;
 
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
@@ -42,7 +42,7 @@ public class CommandButtonSpawner : MonoBehaviour
             GameObject clone = Instantiate(buttonPrefab, transform.position, transform.rotation);
             CommandButtonSpawner cloneScript = clone.GetComponent<CommandButtonSpawner>();
             cloneScript.wallPlane = wallPlane;
-            cloneScript.IsClone = true; // Set the public property
+            cloneScript.IsClone = true; 
             cloneScript.commandName = commandName;
             cloneScript.buttonPrefab = buttonPrefab;
             cloneScript.originalRotation = transform.rotation;
@@ -56,7 +56,7 @@ public class CommandButtonSpawner : MonoBehaviour
         }
         else if (IsClone)
         {
-            // When re-grabbing a clone, we should remove it from the sequence until it's placed again.
+            
             CommandSequenceManager.Instance?.RemoveCommandByTransform(transform);
         }
     }
@@ -70,7 +70,7 @@ public class CommandButtonSpawner : MonoBehaviour
         
         if (IsClone)
         {
-            // Register command with its final position
+            
             CommandSequenceManager.Instance?.AddCommand(commandName, transform.position);
         }
     }
@@ -94,4 +94,5 @@ public class CommandButtonSpawner : MonoBehaviour
         transform.position = projectedPos + wallPlane.forward * wallDistance;
         transform.rotation = originalRotation;
     }
+
 }
