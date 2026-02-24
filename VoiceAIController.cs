@@ -25,7 +25,7 @@ public class VoiceAIController : MonoBehaviour
     public bool isRoomActive = false; 
 
     [Header("VR Input")]
-    public XRNode inputSource = XRNode.LeftHand; // Левая рука по умолчанию
+    public XRNode inputSource = XRNode.LeftHand; 
     private AudioClip _recording;
     private bool _isRecording = false;
     private string _micName;
@@ -36,7 +36,7 @@ public class VoiceAIController : MonoBehaviour
     {
         if (successUIPanel != null) successUIPanel.SetActive(false);
         
-        // Настройка микрофона
+
         if (Microphone.devices.Length > 0)
         {
             _micName = Microphone.devices[0];
@@ -45,7 +45,7 @@ public class VoiceAIController : MonoBehaviour
             _micFreq = (max > 0) ? max : 44100;
         }
 
-        // Промпт пациента (Психологический сеанс)
+       
         _chatHistory.Add(new JObject { 
             ["role"] = "system", 
             ["content"] = "Ты — пациент на приеме у психолога. Отвечай кратко, проявляй эмоции. " +
@@ -54,7 +54,7 @@ public class VoiceAIController : MonoBehaviour
         });
     }
 
-    // Метод, который вызывает твоя 3D-Кнопка (RoomActivator)
+
     public void ActivateRoom() 
     {
         isRoomActive = true;
@@ -63,12 +63,12 @@ public class VoiceAIController : MonoBehaviour
 
     void Update()
     {
-        // Если кнопка в комнате еще не нажата — микрофон не работает
+        
         if (!isRoomActive) return;
 
         bool isPressed = CheckInput();
 
-        // Логика записи (Push-to-Talk)
+
         if (isPressed && !_isRecording) 
         {
             StartRecording();
@@ -78,7 +78,7 @@ public class VoiceAIController : MonoBehaviour
             StartCoroutine(StopAndProcessRoutine());
         }
 
-        // Управление анимацией говорящего пациента
+
         if (animator != null) 
         {
             animator.SetBool("isTalking", audioSource.isPlaying);
@@ -87,10 +87,10 @@ public class VoiceAIController : MonoBehaviour
 
     bool CheckInput()
     {
-        // Клавиша O для теста в редакторе
+        
         if (Input.GetKey(KeyCode.O)) return true;
 
-        // Проверка триггера на VR контроллере
+
         InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
         if (device.isValid && device.TryGetFeatureValue(CommonUsages.triggerButton, out bool pressed)) 
         {
@@ -109,7 +109,7 @@ public class VoiceAIController : MonoBehaviour
     IEnumerator StopAndProcessRoutine()
     {
         _isRecording = false;
-        yield return new WaitForSeconds(0.1f); // Короткая пауза для завершения буфера
+        yield return new WaitForSeconds(0.1f); 
         int lastSample = Microphone.GetPosition(_micName);
         Microphone.End(_micName);
         
@@ -150,7 +150,7 @@ public class VoiceAIController : MonoBehaviour
             {
                 string aiText = JObject.Parse(request.downloadHandler.text)["choices"][0]["message"]["content"].ToString();
                 
-                // Проверка на завершение сеанса
+
                 if (aiText.Contains("[FINISH]"))
                 {
                     aiText = aiText.Replace("[FINISH]", "");
@@ -165,7 +165,7 @@ public class VoiceAIController : MonoBehaviour
 
     IEnumerator GetFinalEvaluation()
     {
-        // Просим GPT проанализировать сеанс для UI
+
         string evalPrompt = "Сделай краткий отчет: 2 совета психологу и оценка от 1 до 5.";
         _chatHistory.Add(new JObject { ["role"] = "user", ["content"] = evalPrompt });
         
@@ -190,12 +190,11 @@ public class VoiceAIController : MonoBehaviour
             headerText.text = "СЕАНС ЗАВЕРШЕН";
             recommendationsText.text = report;
 
-            // Логика подсчета звезд (поиском цифры в тексте)
             int score = 5; 
             for (int i = 1; i <= 5; i++) if (report.Contains(i.ToString())) score = i;
             
             string smiles = "";
-            for (int i = 0; i < score; i++) smiles += "★ "; // Заменил на звезды для красоты
+            for (int i = 0; i < score; i++) smiles += "★ "; 
             starsText.text = "РЕЗУЛЬТАТ: " + smiles;
         }
     }
@@ -235,4 +234,5 @@ public class VoiceAIController : MonoBehaviour
         t.SetData(d, 0);
         return t;
     }
+
 }
